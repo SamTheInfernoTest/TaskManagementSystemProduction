@@ -2,9 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link id="favicon" rel="icon" type="image/svg+xml" href="blacktms.svg"/>
+    <script>
+      const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+      const themeLink = document.getElementById('favicon');
+      
+      // Function to update the theme
+      function updateTheme(e) {
+        if (e.matches) {
+          themeLink.href = 'whitetms.svg';
+        } else {
+          themeLink.href = 'blacktms.svg';
+        }
+      }
+      
+      // Initial theme check
+      updateTheme(darkThemeMq);
+      
+      // Listen for changes in the theme preference
+      darkThemeMq.addListener(e => updateTheme(e));
+      
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>TMS | Task Management System</title>
   </head>
   <body>
     <div id="root"></div>

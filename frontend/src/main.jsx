@@ -1,10 +1,18 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+
 import './index.css'
-import App from './App.jsx'
+import Routes from './Routes'
+import { UserContextProvider } from './context/UserContext'
+import { WebContextProvider } from './context/WebContext'
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <WebContextProvider>
+      <UserContextProvider>
+        <Routes />
+      </UserContextProvider>
+    </WebContextProvider>
   </StrictMode>,
 )
