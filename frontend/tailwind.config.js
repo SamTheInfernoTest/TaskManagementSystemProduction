@@ -6,7 +6,24 @@ export default {
   ],
   darkMode: 'selector',
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'darkBg': '#070F2B',
+        'lightBg': '#DFF2EB',
+        'darkHeader': '#03045E',
+        'lightHeader': '#90E0EF',
+        'darkMenu': '#023E8A',
+        'lightMenu': '#48CAE4',
+        'darkLive': '#0077B6',
+        'lightLive': '#00B4D8',
+        'darkHover': '#0096C7',
+        'lightHover': '#90E0F3',
+        'darkPanel': '#083D77',
+        'lightPanel': '#90E0F3',
+        'darkText': '#DFF2EB',
+        'lightText': '#000000'
+      }
+    },
   },
   plugins: [],
 }

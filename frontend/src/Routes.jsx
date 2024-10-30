@@ -5,12 +5,16 @@ import { useState, useEffect } from "react";
 import useUser from "./context/UserContext";
 import Welcome from "./components/Welcome.jsx";
 import App from "./App.jsx";
+import Home from "./components/home/Home.jsx";
+import Tasks from "./components/tasks/Tasks.jsx";
 
 
 
 export default function Routes() {
   const { userName } = useUser();
   const [router, setRouter] = useState(null);
+
+  
 
   const router1 = createBrowserRouter(
     createRoutesFromElements(
@@ -28,7 +32,11 @@ export default function Routes() {
       <>
         <Route path="/*" element={<Navigate to={`/${userName}`} replace />} />
         <Route path={`/${userName}`} element={<App />} >
-
+          <Route path='' element={<Home />} />
+          <Route path='tasks' element={<Tasks />} />
+          <Route path='people'  />
+          <Route path='chat'  />
+          <Route path='settings'  />
         </Route>
       </>
     )
