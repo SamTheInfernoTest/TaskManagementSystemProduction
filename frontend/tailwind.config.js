@@ -21,7 +21,9 @@ export default {
         'darkPanel': '#083D77',
         'lightPanel': '#90E0F3',
         'darkText': '#DFF2EB',
-        'lightText': '#000000'
+        'lightText': '#000000',
+        'darkButton': '#4A628A',
+        'lightButton': '#0D47A1',
       }
     },
   },

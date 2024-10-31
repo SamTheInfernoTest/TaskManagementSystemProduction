@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link id="favicon" rel="icon" type="image/svg+xml" href="blacktms.svg"/>
+    <link id="favicon" rel="icon" type="image/svg+xml" href="/blacktms.svg"/>
     <script>
       const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
       const themeLink = document.getElementById('favicon');
@@ -10,9 +10,9 @@
       // Function to update the theme
       function updateTheme(e) {
         if (e.matches) {
-          themeLink.href = 'whitetms.svg';
+          themeLink.href = '/whitetms.svg';
         } else {
-          themeLink.href = 'blacktms.svg';
+          themeLink.href = '/blacktms.svg';
         }
       }
       

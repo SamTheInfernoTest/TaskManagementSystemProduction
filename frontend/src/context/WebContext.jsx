@@ -60,13 +60,14 @@ export function WebContextProvider({ children }) {
         <webContext.Provider value={{ theme}}>
             <div className={`dark:text-darkText text-lightText`}>
                 <button
-                    className="fixed -left-14 hover:left-0 duration-75 bottom-10 dark:bg-[#4A628A] bg-[#9290C3] w-24 rounded-r-full flex gap-1 dark:text-[#DFF2EB] text-white delay-200 z-30 ring ring-[#9290C3] "
+                    className="fixed -left-14 hover:left-0 duration-75 bottom-10 dark:bg-[#4A628A] bg-[#023E8A] w-24 rounded-r-full flex gap-1 dark:text-[#DFF2EB] text-white delay-200 z-30 ring ring-[#9290C3] "
                     onClick={()=>{setThemeMenu('block')}} 
+                    onMouseLeave={() => {setThemeMenu('hidden')}}
                 >
                     <div className="my-auto font-bold">Theme</div>                    
                     <img src="/mode.png" alt="theme" className="w-10 h-10"/>
-                    <div className={`absolute bottom-11 left-0 dark:bg-[#4A628A] bg-[#9290C3] font-semibold p-1 rounded-xl ${themeMenu} w-20 ring ring-[#9290C3] `}
-                    onMouseLeave={() => {setThemeMenu('hidden')}}
+                    <div className={`absolute bottom-10 left-1 dark:bg-[#4A628A] bg-[#023E8A] font-semibold p-1 rounded-xl ${themeMenu} w-20  border-x-2 border-t-2 border-[#9290C3]`}
+                    // onMouseLeave={() => {setThemeMenu('hidden')}}
                     >
                         <ul className="flex gap-2 flex-col">
                             <li onClick={(e) => {

@@ -30,9 +30,9 @@ export default function Routes() {
   const router2 = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/*" element={<Navigate to={`/${userName}`} replace />} />
+        <Route path="/*" element={<Navigate to={`/${userName}/home`} replace />} />
         <Route path={`/${userName}`} element={<App />} >
-          <Route path='' element={<Home />} />
+          <Route path='home' element={<Home />} />
           <Route path='tasks' element={<Tasks />} />
           <Route path='people'  />
           <Route path='chat'  />
