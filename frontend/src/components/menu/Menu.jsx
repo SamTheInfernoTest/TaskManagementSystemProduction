@@ -45,10 +45,10 @@ function Menu({setShowMenu}) {
                       onClick={() => setShowMenu(false)}
                   >
                       <NavLink
-                          to={`/${userName}/people`}
+                          to={`/${userName}/mentors`}
                           className={({ isActive }) => `${isActive ? 'font-bold dark:bg-darkLive bg-lightLive' : ''} hover:bg-lightHover dark:hover:bg-darkHover p-1 rounded-r-xl w-full block text-center`}
                       >
-                          People
+                          Mentors
                       </NavLink>
                   </li>
                   <li className="w-full"

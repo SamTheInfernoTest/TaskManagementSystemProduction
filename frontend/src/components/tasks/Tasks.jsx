@@ -1,8 +1,11 @@
 import React from 'react'
+import TaskPanel from './TaskPanel'
 
 function Tasks() {
   return (
-    <div>Tasks</div>
+    <div>
+      <TaskPanel />
+    </div>
   )
 }
 

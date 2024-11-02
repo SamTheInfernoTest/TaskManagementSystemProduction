@@ -7,6 +7,9 @@ import Welcome from "./components/Welcome.jsx";
 import App from "./App.jsx";
 import Home from "./components/home/Home.jsx";
 import Tasks from "./components/tasks/Tasks.jsx";
+import Mentors from "./components/mentors/Mentors.jsx";
+import Chat from "./components/chat/Chat.jsx";
+import Settings from "./components/settings/Settings.jsx";
 
 
 
@@ -34,9 +37,9 @@ export default function Routes() {
         <Route path={`/${userName}`} element={<App />} >
           <Route path='home' element={<Home />} />
           <Route path='tasks' element={<Tasks />} />
-          <Route path='people'  />
-          <Route path='chat'  />
-          <Route path='settings'  />
+          <Route path='mentors' element={<Mentors />} />
+          <Route path='chat' element={<Chat />} />
+          <Route path='settings' element={<Settings />} />
         </Route>
       </>
     )
