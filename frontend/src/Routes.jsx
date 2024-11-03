@@ -10,7 +10,8 @@ import Tasks from "./components/tasks/Tasks.jsx";
 import Mentors from "./components/mentors/Mentors.jsx";
 import Chat from "./components/chat/Chat.jsx";
 import Settings from "./components/settings/Settings.jsx";
-
+import Login from "./components/authentication/Login.jsx";
+import Register from "./components/authentication/Register.jsx";
 
 
 export default function Routes() {
@@ -23,9 +24,9 @@ export default function Routes() {
     createRoutesFromElements(
       <>
         <Route path="/*" element={<Navigate to="/" replace />} />
-        <Route path="/" element={<Welcome />}>
-
-        </Route>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </>
     )
   );
