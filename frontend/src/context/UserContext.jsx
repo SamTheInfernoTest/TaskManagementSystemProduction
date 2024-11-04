@@ -5,7 +5,7 @@ const userContext = createContext();
 
 export function UserContextProvider({ children }) {
 
-    const [userName, setUserName] = useState(null)
+    const [userName, setUserName] = useState('null')
     const [profileImage, setProfileImage] = useState(null)
 
     // useEffect(() => {
