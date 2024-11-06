@@ -2,4 +2,6 @@ from django.urls import path
 
 from . import views
 
-urlpatterns = []
+urlpatterns = [
+    path('standards/', views.getStandards , name='getStandards'),
+]

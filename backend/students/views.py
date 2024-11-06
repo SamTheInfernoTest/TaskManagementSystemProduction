@@ -24,3 +24,9 @@ def login(request):
     except  students.DoesNotExist:
         return Response({'message':"User does not exist"},status=status.HTTP_404_NOT_FOUND)
             
+@api_view(['POST'])
+def refresh(request):
+    refresh = RefreshToken(request.data)
+    return Response({
+        'access': str(refresh.access_token)
+    },status=status.HTTP_200_OK)

@@ -1,11 +1,17 @@
 import React from 'react'
 
-import Panel from './Panel'
+import useUser from '../../context/UserContext'
 
 function Home() {
+
+  const {axiosSecure} = useUser()
   return (
     <div className='w-full h-full'>
-        <Panel />
+        <button
+        onClick={() => axiosSecure.get('/institute/standards/').then((res) => console.log(res.data))}
+        >
+          click me for axios
+        </button>
     </div>
   )
 }
