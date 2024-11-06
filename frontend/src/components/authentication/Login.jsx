@@ -50,6 +50,7 @@ function Login() {
       containerId="login"
       position='top-right'
       limit={3}
+      theme={theme}
       />
       
       {/* Left side for image */}

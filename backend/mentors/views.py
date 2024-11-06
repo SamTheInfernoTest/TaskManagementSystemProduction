@@ -22,5 +22,5 @@ def login(request):
         else:
             return Response({'message':"Wrong Password"},status=status.HTTP_401_UNAUTHORIZED)
     except  mentors.DoesNotExist:
-        return Response({message:"User does not exist"},status=status.HTTP_404_NOT_FOUND)
+        return Response({'message':"User does not exist"},status=status.HTTP_404_NOT_FOUND)
             
