@@ -13,7 +13,9 @@ function Menu({setShowMenu}) {
     
 
   return (
-    <div className='h-full w-full flex flex-col items-center p-2'>
+    <div className='h-full w-full flex flex-col items-center p-2'
+    onClick={() => setShowMenu(false)}
+    >
         <div className='mt-10'>
               <img src={theme === "dark" ? "/whitetms.svg" : "/blacktms.svg"} alt="TMS Logo"
                   className='h-36'
