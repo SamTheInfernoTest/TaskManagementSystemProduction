@@ -8,7 +8,7 @@ import useWeb from "./context/WebContext"
 
 function App() {
 
-  const { userName, profileImage } = useUser()
+  const { userName, profileImage, logoutTheUser } = useUser()
   const { theme } = useWeb()
   const [showMenu, setShowMenu] = useState(false)
 
@@ -33,7 +33,11 @@ function App() {
             </div>
           </div>
 
-          <div className="my-auto mr-5">
+          <div className="my-auto mr-5 flex sm:gap-8 gap-2">
+            <button
+            className="text-lg font-semibold text-darkText dark:bg-red-700 dark:hover:bg-red-800 bg-red-500 hover:bg-red-700 my-auto py-1 px-3 rounded-3xl"
+            onClick={() => logoutTheUser()}
+            >Logout</button>
             <img src={profileImage} alt="Profile Image"
               className="w-16 h-16 rounded-full ring dark:ring-slate-500 ring-slate-400 sm:scale-100 scale-75" />
           </div>

@@ -7,7 +7,7 @@ import useUser from '../../context/UserContext';
 function Menu({setShowMenu}) { 
 
     const { theme } = useWeb();
-    const {userName} = useUser();
+    const {userName, userType} = useUser();
 
     const currentLocation = useLocation();
     
@@ -31,7 +31,8 @@ function Menu({setShowMenu}) {
                           Home
                       </NavLink>
                   </li>
-                  <li className="w-full"
+                  { userType === "student" ?
+                    <li className="w-full"
                       onClick={() => setShowMenu(false)}
                   >
                       <NavLink
@@ -40,8 +41,19 @@ function Menu({setShowMenu}) {
                       >
                           Tasks
                       </NavLink>
-                  </li>
+                  </li> :
                   <li className="w-full"
+                      onClick={() => setShowMenu(false)}
+                  >
+                      <NavLink
+                          to={`/${userName}/assignTask`}
+                          className={({ isActive }) => `${isActive ? 'font-bold dark:bg-darkLive bg-lightLive' : ''} hover:bg-lightHover dark:hover:bg-darkHover p-1 rounded-r-xl w-full block text-center`}
+                      >
+                         Assign Tasks
+                      </NavLink>
+                  </li>}
+                  { userType === "student" ?
+                    <li className="w-full"
                       onClick={() => setShowMenu(false)}
                   >
                       <NavLink
@@ -50,7 +62,17 @@ function Menu({setShowMenu}) {
                       >
                           Mentors
                       </NavLink>
-                  </li>
+                  </li>:
+                  <li className="w-full"
+                      onClick={() => setShowMenu(false)}
+                  >
+                      <NavLink
+                          to={`/${userName}/students`}
+                          className={({ isActive }) => `${isActive ? 'font-bold dark:bg-darkLive bg-lightLive' : ''} hover:bg-lightHover dark:hover:bg-darkHover p-1 rounded-r-xl w-full block text-center`}
+                      >
+                          Students
+                      </NavLink>
+                  </li>}
                   <li className="w-full"
                       onClick={() => setShowMenu(false)}
                   >

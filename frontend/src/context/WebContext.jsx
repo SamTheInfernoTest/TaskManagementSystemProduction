@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import 'react-toastify/dist/ReactToastify.css';
 
 const webContext = createContext();
 
@@ -10,6 +11,8 @@ export function WebContextProvider({ children }) {
     const [theme, setTheme] = useState(localTheme || 'light');
     const [themeMenu, setThemeMenu] = useState('hidden');
     const [mode, setMode] = useState(localTheme || 'system');
+
+    const baseApiUrl = 'http://127.0.0.1:8000'
 
     // For reference https://coolors.co/palette/03045e-023e8a-0077b6-0096c7-00b4d8-48cae4-90e0ef-ade8f4-caf0f8
     
@@ -57,7 +60,7 @@ export function WebContextProvider({ children }) {
     }, [mode]);
 
     return (
-        <webContext.Provider value={{ theme}}>
+        <webContext.Provider value={{ theme, baseApiUrl}}>
             <div className={`dark:text-darkText text-lightText`}>
                 <button
                     className="fixed -left-14 hover:left-0 duration-75 bottom-10 dark:bg-[#4A628A] bg-[#023E8A] w-24 rounded-r-full flex gap-1 dark:text-[#DFF2EB] text-white delay-200 z-30 ring ring-[#9290C3] "

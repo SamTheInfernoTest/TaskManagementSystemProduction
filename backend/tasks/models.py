@@ -12,6 +12,7 @@ class tasks(models.Model):
     taskImage = models.FileField(upload_to='taskImages/%Y/%B/%d',default=None, null=True)
     description = models.TextField()
     createdDate = models.DateTimeField(auto_now_add=True)
+    dueDate = models.DateTimeField(default = None, null = True)
 
     assignor = models.ForeignKey(mentors, on_delete=models.SET_NULL, null=True)
     assignees = models.ForeignKey(standards, on_delete=models.SET_NULL, null=True)
