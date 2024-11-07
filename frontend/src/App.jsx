@@ -8,9 +8,10 @@ import useWeb from "./context/WebContext"
 
 function App() {
 
-  const { userName, profileImage, logoutTheUser } = useUser()
-  const { theme } = useWeb()
+  const { name, profileImage, logoutTheUser } = useUser()
+  const { theme, baseApiUrl } = useWeb()
   const [showMenu, setShowMenu] = useState(false)
+console.log(profileImage);
 
   return (
     <div className="Main w-screen h-screen relative">
@@ -34,7 +35,7 @@ function App() {
               />
             </button>
             <div className="">
-              <h1 className="sm:text-2xl text-lg">Hi, {userName}</h1>
+              <h1 className="sm:text-2xl text-lg">Hi, {name}</h1>
               <h2 className="sm:text-base text-xs">Let's finish your tasks today!</h2>
             </div>
           </div>
@@ -44,7 +45,7 @@ function App() {
             className="text-lg font-semibold text-darkText dark:bg-red-700 dark:hover:bg-red-800 bg-red-500 hover:bg-red-700 my-auto py-1 px-3 rounded-3xl"
             onClick={() => logoutTheUser()}
             >Logout</button>
-            <img src={profileImage} alt="Profile Image"
+            <img src={`${baseApiUrl}${profileImage}`} alt="Profile Image"
               className="w-16 h-16 rounded-full ring dark:ring-slate-500 ring-slate-400 lg:scale-100 scale-75" />
           </div>
         </header>

@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRef, useState } from 'react';
 
 import TaskPanel from './TaskPanel'
 import useWeb from '../../context/WebContext'
 import TaskViewer from './TaskViewer';
+import useUser from '../../context/UserContext'
 
 function Tasks() {
 
   const {theme} = useWeb();
+
+  const {axiosSecure, userName} = useUser();
+
+  const [tasks, setTasks] = useState(localStorage.getItem('tasks') || []);
+
+  useEffect(() => {
+    axiosSecure.get(``)
+  },[])
 
   const timeLimitRef = useRef(null);
   const newTaskRef = useRef(null);

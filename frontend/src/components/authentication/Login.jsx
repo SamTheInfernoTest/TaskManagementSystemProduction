@@ -30,7 +30,7 @@ function Login() {
         .then(response => response.data)
         .then(data => {
           toast.success('Login Successful', { containerId: "login", toastId:'loginSuccess' });
-          loginTheUser(type, user, data.refresh, data.access)
+          loginTheUser(type, user, data.name, data.profileImage, data.standards, data.refresh, data.access)
         })
         .catch(res => {console.log(res.response.data.message)
           toast.error(res.response.data.message, { containerId: "login", toastId:'loginError' });

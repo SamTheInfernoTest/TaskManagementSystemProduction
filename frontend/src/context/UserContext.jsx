@@ -10,42 +10,63 @@ export function UserContextProvider({ children }) {
 
     const [userType, setUserType] = useState(null)
     const [userName, setUserName] = useState(null)
+    const [name, setName] = useState('')
+    const [standards, setStandards] = useState([])
     const [profileImage, setProfileImage] = useState(null)
     const [rememberMe, setRememberMe] = useState(true)
 
     const [token, setToken] = useState(null)
     const [refreshToken, setRefreshToken] = useState(null)
 
-    const {baseApiUrl} = useWeb()
+    const {baseApiUrl, theme} = useWeb()
 
     useEffect(() => {
         if(Cookie.get('userName')){
             setUserName(Cookie.get('userName'))
             setUserType(Cookie.get('userType'))
             setRefreshToken(Cookie.get('refreshToken'))
+            setName(Cookie.get('name'))
+            setProfileImage(Cookie.get('profileImage'))
+            setStandards(JSON.parse(Cookie.get('standards') || '[]'))
         }
     }, [])
 
-    function loginTheUser(userType ,username, refreshToken, token){
+    function loginTheUser(userType , username, name, profileImage, standards, refreshToken, token){
         setUserType(userType)
         setUserName(username)
+        setName(name)
+        setProfileImage(profileImage)
+        setStandards(standards)
         setToken(token)
         setRefreshToken(refreshToken)
 
         Cookie.set('userType', userType)
         Cookie.set('userName', username)
+        Cookie.set('name', name)
+        Cookie.set('profileImage', profileImage)
+        Cookie.set('standards', JSON.stringify(standards))
         Cookie.set('refreshToken', refreshToken)
     }
 
     function logoutTheUser(){
         Cookie.remove('userType')
         Cookie.remove('userName')
+        Cookie.remove('name')
+        Cookie.remove('profileImage')
+        Cookie.remove('standards')
         Cookie.remove('refreshToken')
 
         setUserType(null)
         setUserName(null)
+        setName('')
+        setProfileImage(null)
+        setStandards([])
         setToken(null)
         setRefreshToken(null)
+
+        // localStorage.clear();
+        // localStorage.setItem('userSelection', userType)
+        // localStorage.setItem('theme', theme);
     }
 
     // useEffect(() => {
@@ -87,9 +108,9 @@ export function UserContextProvider({ children }) {
     axiosSecure.interceptors.request.use(
         (config) => {
             // Add token to headers if available
-            const token = Cookie.get('token'); // Or from your app's state
-            if (token) {
-                config.headers['Authorization'] = `Bearer ${token}`;
+            const access = token
+            if (access) {
+                config.headers['Authorization'] = `Bearer ${access}`;
             }
             return config;
         },
@@ -100,9 +121,9 @@ export function UserContextProvider({ children }) {
 
     // Function to handle refreshing the token
     const refreshAccessToken = async () => {
-        const refreshToken = Cookie.get('refreshToken'); // Or retrieve from state if managed
+        const refresh = refreshToken
         try {
-            const response = await axios.post(REFRESH_TOKEN_URL, { refreshToken });
+            const response = await axios.post(REFRESH_TOKEN_URL, { refresh });
             const newAccessToken = response.data.access;
 
             // Save the new token in local storage or state
@@ -141,7 +162,7 @@ export function UserContextProvider({ children }) {
     //// Custom Axios
 
     return (
-        <userContext.Provider value={{ userName, setUserName, profileImage, setProfileImage, userType, setUserType, loginTheUser, logoutTheUser, rememberMe, setRememberMe, axiosSecure }}>
+        <userContext.Provider value={{ userName, name, profileImage, standards, userType, loginTheUser, logoutTheUser, rememberMe, setRememberMe, axiosSecure }}>
             {children}
         </userContext.Provider>
     )
