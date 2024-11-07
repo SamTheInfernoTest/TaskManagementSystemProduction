@@ -9,7 +9,7 @@ const userContext = createContext();
 export function UserContextProvider({ children }) {
 
     const [userType, setUserType] = useState(null)
-    const [userName, setUserName] = useState(null)
+    const [uid, setUid] = useState(null)
     const [name, setName] = useState('')
     const [standards, setStandards] = useState([])
     const [profileImage, setProfileImage] = useState(null)
@@ -21,8 +21,8 @@ export function UserContextProvider({ children }) {
     const {baseApiUrl, theme} = useWeb()
 
     useEffect(() => {
-        if(Cookie.get('userName')){
-            setUserName(Cookie.get('userName'))
+        if(Cookie.get('uid')){
+            setUid(Cookie.get('uid'))
             setUserType(Cookie.get('userType'))
             setRefreshToken(Cookie.get('refreshToken'))
             setName(Cookie.get('name'))
@@ -31,9 +31,9 @@ export function UserContextProvider({ children }) {
         }
     }, [])
 
-    function loginTheUser(userType , username, name, profileImage, standards, refreshToken, token){
+    function loginTheUser(userType , uid, name, profileImage, standards, refreshToken, token){
         setUserType(userType)
-        setUserName(username)
+        setUid(uid)
         setName(name)
         setProfileImage(profileImage)
         setStandards(standards)
@@ -41,7 +41,7 @@ export function UserContextProvider({ children }) {
         setRefreshToken(refreshToken)
 
         Cookie.set('userType', userType)
-        Cookie.set('userName', username)
+        Cookie.set('uid', uid)
         Cookie.set('name', name)
         Cookie.set('profileImage', profileImage)
         Cookie.set('standards', JSON.stringify(standards))
@@ -50,14 +50,14 @@ export function UserContextProvider({ children }) {
 
     function logoutTheUser(){
         Cookie.remove('userType')
-        Cookie.remove('userName')
+        Cookie.remove('uid')
         Cookie.remove('name')
         Cookie.remove('profileImage')
         Cookie.remove('standards')
         Cookie.remove('refreshToken')
 
         setUserType(null)
-        setUserName(null)
+        setUid(null)
         setName('')
         setProfileImage(null)
         setStandards([])
@@ -73,7 +73,7 @@ export function UserContextProvider({ children }) {
     //     axios.get('https://randomuser.me/api/')
     //     .then(response => response.data.results[0])
     //     .then(data => {
-    //         setUserName(data.name.first + ' ' + data.name.last)
+    //         setUid(data.name.first + ' ' + data.name.last)
     //         setProfileImage(data.picture.medium)
     //     })
     // }, [])
@@ -162,7 +162,7 @@ export function UserContextProvider({ children }) {
     //// Custom Axios
 
     return (
-        <userContext.Provider value={{ userName, name, profileImage, standards, userType, loginTheUser, logoutTheUser, rememberMe, setRememberMe, axiosSecure }}>
+        <userContext.Provider value={{ uid, name, profileImage, standards, userType, loginTheUser, logoutTheUser, rememberMe, setRememberMe, axiosSecure }}>
             {children}
         </userContext.Provider>
     )

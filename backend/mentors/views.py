@@ -4,19 +4,19 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import mentors, mentorStandard
+from .models import Mentor
 
 @api_view(['POST'])
 def login(request):
     data = request.data
-    email = data['username']
+    uid = data['uid']
     password = data['password']
     try:
-        user = mentors.objects.get(email = email)
+        user = Mentor.objects.get(uid = uid)
         if user.password == password:
             name = user.name
-            profileImage = user.profileImage
-            standards = list(mentorStandard.objects.filter(mentor = user))
+            profileImage = user.profileImage.url if user.profileImage else None
+            standards = []
             refresh = RefreshToken.for_user(user)
             return Response({
                 'refresh': str(refresh),

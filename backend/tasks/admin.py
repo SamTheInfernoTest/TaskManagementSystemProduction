@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import tasks, tasksStudents
+from .models import Task, TaskSubmission
 # Register your models here.
-admin.site.register(tasks)
-admin.site.register(tasksStudents)
+admin.site.register(Task)
+admin.site.register(TaskSubmission)

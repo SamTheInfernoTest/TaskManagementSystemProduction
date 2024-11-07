@@ -3,9 +3,3 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import tasks
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def studentGetTasks(request):
-    pass

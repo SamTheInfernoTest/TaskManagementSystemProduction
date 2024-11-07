@@ -24,7 +24,7 @@ function Login() {
     if (user && password && type != '') {
 
       axios.post(`${baseApiUrl}/${type}/login/`, {
-        username: user,
+        uid: user,
         password: password
       })
         .then(response => response.data)
@@ -38,7 +38,7 @@ function Login() {
         )
     }
     else{
-      toast.info('Please enter username, password and select type of user',{ containerId: "login", toastId:'notFullyFilled' });
+      toast.info('Please enter UID, password and select type of user',{ containerId: "login", toastId:'notFullyFilled' });
     }
   }
 
@@ -80,9 +80,9 @@ function Login() {
               </select>
             </div>
 
-            {/* Username Input */}
+            {/* UID Input */}
             <div>
-              <label className="block text-sm font-medium">Username</label>
+              <label className="block text-sm font-medium">UID</label>
               <input type="text" className="text-lightText mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 value={user}
                 onChange={(e) => {

@@ -1,37 +1,34 @@
 from django.db import models
- 
-from institute.models import standards
-from mentors.models import mentors
-from students.models import students
+from django.utils import timezone
+from institute.models import Standard
+from mentors.models import Mentor 
+from students.models import Student
 
-# Create your models here.
-class tasks(models.Model):
+class Task(models.Model):
     subject = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
-    taskFile = models.FileField(upload_to='taskFiles/%Y/%B/%d')
-    taskImage = models.FileField(upload_to='taskImages/%Y/%B/%d',default=None, null=True)
+    task_file = models.FileField(upload_to='taskFiles/%Y/%B/%d',null=True, blank=True)
+    task_image = models.FileField(upload_to='taskImages/%Y/%B/%d', null=True, blank=True)
     description = models.TextField()
-    createdDate = models.DateTimeField(auto_now_add=True)
-    dueDate = models.DateTimeField(default = None, null = True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    due_date = models.DateTimeField(null=True, blank=True)
 
-    assignor = models.ForeignKey(mentors, on_delete=models.SET_NULL, null=True)
-    assignees = models.ForeignKey(standards, on_delete=models.SET_NULL, null=True)
+    assignor = models.ForeignKey(Mentor, on_delete=models.SET_NULL, null=True, related_name="assigned_tasks")
+    assignees = models.ForeignKey(Standard, on_delete=models.SET_NULL, null=True, related_name="tasks")
 
     def __str__(self):
         return self.title
- 
 
 def student_submission_upload_path(instance, filename):
-    # Ensure that student and task names are handled safely for file paths
     student_name = instance.student.name.replace(" ", "_")
     current_date = timezone.now()
-    # Generate path based on student's name and current date (year, month, day)
     return f"submission/{student_name}/{current_date.year}/{current_date.strftime('%B')}/{current_date.day}/{filename}"
-class tasksStudents(models.Model):
-    task = models.ForeignKey(tasks, on_delete=models.SET_NULL, null=True)
-    student = models.ForeignKey(students, on_delete=models.SET_NULL, null=True)
-    completedDate = models.DateTimeField(auto_now_add=True)
-    submission = models.FileField(upload_to=student_submission_upload_path)
+    
+class TaskSubmission(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="submissions")
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="submissions")
+    completed_date = models.DateTimeField(auto_now_add=True)
+    submission_file = models.FileField(upload_to=student_submission_upload_path, null=True, blank=True)
 
     def __str__(self):
         return f"{self.task.title} - {self.student.name}"

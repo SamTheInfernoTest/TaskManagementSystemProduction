@@ -4,10 +4,10 @@ from rest_framework.response import Response
 from rest_framework import status
 import json
 
-from .models import standards
+from .models import Standard
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getStandards(request):
-    Standards = standards.objects.all()
+    Standards = Standard.objects.all()
     return Response(list(Standards.values()))

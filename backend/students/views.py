@@ -4,18 +4,18 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import students, studentStandard
+from .models import Student
 
 @api_view(['POST'])
 def login(request):
     data = request.data
-    email = data['username']
+    uid = data['uid']
     password = data['password']
     try:
-        user = students.objects.get(email = email)
+        user = Student.objects.get(uid = uid)
         if user.password == password:
             name = user.name
-            profileImage =  user.profileImage.url
+            profileImage =  user.profileImage.url if user.profileImage else None
             # standards = list(studentStandard.objects.filter(student = user).values())
             # print(standards)
             refresh = RefreshToken.for_user(user)

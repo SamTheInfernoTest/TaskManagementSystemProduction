@@ -1,16 +1,16 @@
 from django.contrib.auth.backends import BaseBackend
 
-from students.models import students
-from mentors.models import mentors
+from students.models import Student
+from mentors.models import Mentor
 
 class StudentsBackend(BaseBackend):
 
-    def authentication (self, request , email = None, password = None):
+    def authentication (self, request , uid = None, password = None):
         try:
-            user = students.objects.get(email = email)
+            user = Student.objects.get(uid = uid)
             if user.password == password:
                 return user
-        except  students.DoesNotExist:
+        except  Student.DoesNotExist:
             return None
 
     def get_user(self, user_id):
@@ -22,12 +22,12 @@ class StudentsBackend(BaseBackend):
 
 class MentorsBackend(BaseBackend):
 
-    def authentication (self, request , email = None, password = None):
+    def authentication (self, request , uid = None, password = None):
         try:
-            user = mentors.objects.get(email = email)
+            user = Mentor.objects.get(uid = uid)
             if user.password == password:
                 return user
-        except  mentors.DoesNotExist:
+        except  Mentor.DoesNotExist:
             return None
 
     def get_user(self, user_id):
