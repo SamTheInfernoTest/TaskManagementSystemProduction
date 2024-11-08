@@ -10,7 +10,7 @@ from tasks.models import Task, TaskSubmission
 def load_standards():
     with open('standards.csv', 'r') as file:
         reader = csv.DictReader(file)
-        standards = [Standard(name=row['standard']) for row in reader]
+        standards = [Standard(std=row['standard']) for row in reader]
         Standard.objects.bulk_create(standards)
 
 # Step 2: Load Mentors and Create uid if Missing
@@ -26,7 +26,7 @@ def load_mentors():
 # Step 3: Assign Standards to Mentors
 def assign_standards_to_mentors():
     mentor_dict = {mentor.name: mentor for mentor in Mentor.objects.all()}
-    standard_dict = {standard.name: standard for standard in Standard.objects.all()}
+    standard_dict = {standard.std: standard for standard in Standard.objects.all()}
     
     with open('mentor_standards.csv', 'r') as file:
         reader = csv.DictReader(file)
@@ -49,7 +49,7 @@ def load_students():
 # Step 5: Assign Standards to Students
 def assign_standards_to_students():
     student_dict = {student.name: student for student in Student.objects.all()}
-    standard_dict = {standard.name: standard for standard in Standard.objects.all()}
+    standard_dict = {standard.std: standard for standard in Standard.objects.all()}
     
     with open('student_standards.csv', 'r') as file:
         reader = csv.DictReader(file)
@@ -113,5 +113,4 @@ def run_bulk_creation():
     create_random_tasks()
     create_task_submissions()
 
-# Run this function to perform bulk creation
-run_bulk_creation()
+
