@@ -15,20 +15,20 @@ def login(request):
         user = Student.objects.get(uid = uid)
         if user.password == password:
             name = user.name
-            profileImage =  user.profileImage.url if user.profileImage else None
-            # standards = list(studentStandard.objects.filter(student = user).values())
-            # print(standards)
+            profileImage =  user.profile_image.url if user.profile_image else None
+            standards = user.standards.values_list('std', flat=True)
+            print(standards)
             refresh = RefreshToken.for_user(user)
             return Response({
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
                 'name': name,
                 'profileImage': profileImage,
-                'standards': []
+                'standards': standards
             },status=status.HTTP_200_OK)
         else:
             return Response({'message':"Wrong Password"},status=status.HTTP_401_UNAUTHORIZED)
-    except  students.DoesNotExist:
+    except  Student.DoesNotExist:
         return Response({'message':"User does not exist"},status=status.HTTP_404_NOT_FOUND)
             
 

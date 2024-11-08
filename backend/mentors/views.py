@@ -15,8 +15,8 @@ def login(request):
         user = Mentor.objects.get(uid = uid)
         if user.password == password:
             name = user.name
-            profileImage = user.profileImage.url if user.profileImage else None
-            standards = []
+            profileImage = user.profile_image.url if user.profile_image else None
+            standards = user.standards.values_list('std', flat=True)
             refresh = RefreshToken.for_user(user)
             return Response({
                 'refresh': str(refresh),
@@ -27,7 +27,7 @@ def login(request):
             },status=status.HTTP_200_OK)
         else:
             return Response({'message':"Wrong Password"},status=status.HTTP_401_UNAUTHORIZED)
-    except  mentors.DoesNotExist:
+    except  Mentor.DoesNotExist:
         return Response({'message':"User does not exist"},status=status.HTTP_404_NOT_FOUND)
             
 

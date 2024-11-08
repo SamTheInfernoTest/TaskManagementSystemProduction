@@ -17,7 +17,7 @@ import AssignTask from "./components/assignTask/AssignTask.jsx";
 
 
 export default function Routes() {
-  const { userName, userType } = useUser();
+  const { uid, userType } = useUser();
   const [router, setRouter] = useState(null);
 
   
@@ -36,8 +36,8 @@ export default function Routes() {
   const router2 = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/*" element={<Navigate to={`/${userName}/home`} replace />} />
-        <Route path={`/${userName}`} element={<App />} >
+        <Route path="/*" element={<Navigate to={`/${uid}/home`} replace />} />
+        <Route path={`/${uid}`} element={<App />} >
           <Route path='home' element={<Home />} />
           <Route path='tasks' element={<Tasks />} />
           <Route path='mentors' element={<Mentors />} />
@@ -51,8 +51,8 @@ export default function Routes() {
   const router3 = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/*" element={<Navigate to={`/${userName}/home`} replace />} />
-        <Route path={`/${userName}`} element={<App />} >
+        <Route path="/*" element={<Navigate to={`/${uid}/home`} replace />} />
+        <Route path={`/${uid}`} element={<App />} >
           <Route path='home' element={<Home />} />
           <Route path='assignTask' element={<AssignTask />} />
           <Route path='students' element={<Students />} />
@@ -72,7 +72,7 @@ export default function Routes() {
     } else if (userType === "mentor") {
       setRouter(router3);
     }
-  }, [userName]);
+  }, [uid]);
 
 
   return (

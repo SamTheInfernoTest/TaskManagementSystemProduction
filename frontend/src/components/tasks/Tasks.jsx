@@ -10,7 +10,7 @@ function Tasks() {
 
   const {theme} = useWeb();
 
-  const {axiosSecure, userName} = useUser();
+  const {axiosSecure, userType} = useUser();
 
   const [tasks, setTasks] = useState(localStorage.getItem('tasks') || []);
 

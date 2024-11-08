@@ -11,7 +11,6 @@ function App() {
   const { name, profileImage, logoutTheUser } = useUser()
   const { theme, baseApiUrl } = useWeb()
   const [showMenu, setShowMenu] = useState(false)
-console.log(profileImage);
 
   return (
     <div className="Main w-screen h-screen relative">

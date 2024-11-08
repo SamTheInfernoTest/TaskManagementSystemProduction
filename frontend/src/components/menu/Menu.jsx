@@ -7,9 +7,8 @@ import useUser from '../../context/UserContext';
 function Menu({setShowMenu}) { 
 
     const { theme } = useWeb();
-    const {userName, userType} = useUser();
+    const {uid, userType} = useUser();
 
-    const currentLocation = useLocation();
     
 
   return (
@@ -27,7 +26,7 @@ function Menu({setShowMenu}) {
                       onClick = {() => setShowMenu(false)}
                   >
                       <NavLink
-                          to={`/${userName}/home`}
+                          to={`/${uid}/home`}
                           className={({ isActive }) => `${isActive ? 'font-bold dark:bg-darkLive bg-lightLive' : ''} hover:bg-lightHover dark:hover:bg-darkHover p-1 rounded-r-xl w-full block text-center`}
                       >
                           Home
@@ -38,7 +37,7 @@ function Menu({setShowMenu}) {
                       onClick={() => setShowMenu(false)}
                   >
                       <NavLink
-                          to={`/${userName}/tasks`}
+                          to={`/${uid}/tasks`}
                           className={({ isActive }) => `${isActive ? 'font-bold dark:bg-darkLive bg-lightLive' : ''} hover:bg-lightHover dark:hover:bg-darkHover p-1 rounded-r-xl w-full block text-center`}
                       >
                           Tasks
@@ -48,7 +47,7 @@ function Menu({setShowMenu}) {
                       onClick={() => setShowMenu(false)}
                   >
                       <NavLink
-                          to={`/${userName}/assignTask`}
+                          to={`/${uid}/assignTask`}
                           className={({ isActive }) => `${isActive ? 'font-bold dark:bg-darkLive bg-lightLive' : ''} hover:bg-lightHover dark:hover:bg-darkHover p-1 rounded-r-xl w-full block text-center`}
                       >
                          Assign Tasks
@@ -59,7 +58,7 @@ function Menu({setShowMenu}) {
                       onClick={() => setShowMenu(false)}
                   >
                       <NavLink
-                          to={`/${userName}/mentors`}
+                          to={`/${uid}/mentors`}
                           className={({ isActive }) => `${isActive ? 'font-bold dark:bg-darkLive bg-lightLive' : ''} hover:bg-lightHover dark:hover:bg-darkHover p-1 rounded-r-xl w-full block text-center`}
                       >
                           Mentors
@@ -69,7 +68,7 @@ function Menu({setShowMenu}) {
                       onClick={() => setShowMenu(false)}
                   >
                       <NavLink
-                          to={`/${userName}/students`}
+                          to={`/${uid}/students`}
                           className={({ isActive }) => `${isActive ? 'font-bold dark:bg-darkLive bg-lightLive' : ''} hover:bg-lightHover dark:hover:bg-darkHover p-1 rounded-r-xl w-full block text-center`}
                       >
                           Students
@@ -79,7 +78,7 @@ function Menu({setShowMenu}) {
                       onClick={() => setShowMenu(false)}
                   >
                       <NavLink
-                          to={`/${userName}/chat`}
+                          to={`/${uid}/chat`}
                           className={({ isActive }) => `${isActive ? 'font-bold dark:bg-darkLive bg-lightLive' : ''} hover:bg-lightHover dark:hover:bg-darkHover p-1 rounded-r-xl w-full block text-center`}
                       >
                           Chat
@@ -89,7 +88,7 @@ function Menu({setShowMenu}) {
                       onClick={() => setShowMenu(false)}
                   >
                       <NavLink
-                          to={`/${userName}/settings`}
+                          to={`/${uid}/settings`}
                           className={({ isActive }) => `${isActive ? 'font-bold dark:bg-darkLive bg-lightLive' : ''} hover:bg-lightHover dark:hover:bg-darkHover p-1 rounded-r-xl w-full block text-center`}
                       >
                           Settings
