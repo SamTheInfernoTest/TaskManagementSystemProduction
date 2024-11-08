@@ -2,4 +2,6 @@ from django.urls import path
 
 from . import views
 
-urlpatterns = []
+urlpatterns = [
+    path('byStudent/<str:standard>/',views.studentGetTasks , name='studentGetTasks'),
+]

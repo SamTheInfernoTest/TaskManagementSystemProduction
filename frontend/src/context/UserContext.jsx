@@ -32,6 +32,7 @@ export function UserContextProvider({ children }) {
     }, [])
 
     function loginTheUser(userType , uid, name, profileImage, standards, refreshToken, token){
+        console.log(token);
         setUserType(userType)
         setUid(uid)
         setName(name)
@@ -121,13 +122,15 @@ export function UserContextProvider({ children }) {
 
     // Function to handle refreshing the token
     const refreshAccessToken = async () => {
+        console.log('refreshing token');
+        
         const refresh = refreshToken
         try {
             const response = await axios.post(REFRESH_TOKEN_URL, { refresh });
             const newAccessToken = response.data.access;
 
             // Save the new token in local storage or state
-            Cookie.set('token', newAccessToken);
+            
             setToken(newAccessToken);
 
             // Update Axios authorization header with new token
@@ -150,6 +153,8 @@ export function UserContextProvider({ children }) {
                 try {
                     const newToken = await refreshAccessToken();
                     originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
+                    console.log(newToken);
+                    
                     return axiosSecure(originalRequest); // Retry the request with the new token
                 } catch (refreshError) {
                     return Promise.reject(refreshError); // Pass on refresh error

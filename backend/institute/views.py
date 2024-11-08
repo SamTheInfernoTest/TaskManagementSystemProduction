@@ -7,7 +7,6 @@ import json
 from .models import Standard
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def getStandards(request):
     Standards = Standard.objects.all()
     return Response(list(Standards.values()))

@@ -10,12 +10,20 @@ function Tasks() {
 
   const {theme} = useWeb();
 
-  const {axiosSecure, userType} = useUser();
+  const {axiosSecure, standards} = useUser();
 
   const [tasks, setTasks] = useState(localStorage.getItem('tasks') || []);
 
   useEffect(() => {
-    axiosSecure.get(``)
+    standards.forEach(std => {
+      axiosSecure.get(`task/byStudent/${std}`).then(res => {
+        setTasks(res.data)
+        console.log(res.data);        
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    });
   },[])
 
   const timeLimitRef = useRef(null);
