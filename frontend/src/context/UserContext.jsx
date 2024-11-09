@@ -32,7 +32,6 @@ export function UserContextProvider({ children }) {
     }, [])
 
     function loginTheUser(userType , uid, name, profileImage, standards, refreshToken, token){
-        console.log(token);
         setUserType(userType)
         setUid(uid)
         setName(name)
@@ -122,7 +121,6 @@ export function UserContextProvider({ children }) {
 
     // Function to handle refreshing the token
     const refreshAccessToken = async () => {
-        console.log('refreshing token');
         
         const refresh = refreshToken
         try {
@@ -151,11 +149,14 @@ export function UserContextProvider({ children }) {
             if (error.response?.status === 401 && !originalRequest._retry) {
                 originalRequest._retry = true;
                 try {
-                    const newToken = await refreshAccessToken();
-                    originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
-                    console.log(newToken);
                     
-                    return axiosSecure(originalRequest); // Retry the request with the new token
+                    const newToken = await refreshAccessToken();                    
+
+                    originalRequest.headers['Authorization'] = `Bearer ${newToken}`
+
+                    const response = await axios(originalRequest)
+                    
+                    return response // Retry the request with the new token
                 } catch (refreshError) {
                     return Promise.reject(refreshError); // Pass on refresh error
                 }
