@@ -18,6 +18,8 @@ export function UserContextProvider({ children }) {
     const [token, setToken] = useState(null)
     const [refreshToken, setRefreshToken] = useState(null)
 
+    const [timeLimit, setTimeLimit] = useState(172800000)
+
     const {baseApiUrl, theme} = useWeb()
 
     useEffect(() => {
@@ -155,7 +157,7 @@ export function UserContextProvider({ children }) {
                     originalRequest.headers['Authorization'] = `Bearer ${newToken}`
 
                     const response = await axios(originalRequest)
-                    
+                    console.info('Token refreshed successfully')
                     return response // Retry the request with the new token
                 } catch (refreshError) {
                     return Promise.reject(refreshError); // Pass on refresh error
@@ -167,8 +169,38 @@ export function UserContextProvider({ children }) {
 
     //// Custom Axios
 
+    function isoToLocal(isoString) {
+        if (isoString == null) return ''
+        // Parse the ISO 8601 date-time string and convert it to local time
+        const date = new Date(isoString);
+
+        // Convert to local time string with Indian locale and time zone (Asia/Kolkata)
+        const localTimeString = date.toLocaleString('en-IN', {
+            timeZone: 'Asia/Kolkata', // Set the time zone to India
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        });
+
+        // Split the local time string to format it as needed
+        const [datePart, timePart] = localTimeString.split(', ');
+        const [day, month, year] = datePart.split('/');
+        const [time, period] = timePart.split(' ');
+        const [hour, minute, second] = time.split(':');
+        
+
+        // Format as "dd-mm-yyyy hh:mm AM/PM"
+        const formattedDateTime = `${day}-${month}-${year} ${hour}:${minute} ${period}`;
+
+        return formattedDateTime;
+    }
+
     return (
-        <userContext.Provider value={{ uid, name, profileImage, standards, userType, loginTheUser, logoutTheUser, rememberMe, setRememberMe, axiosSecure }}>
+        <userContext.Provider value={{ uid, name, profileImage, standards, userType, loginTheUser, logoutTheUser, rememberMe, setRememberMe, axiosSecure, timeLimit, setTimeLimit, isoToLocal }}>
             {children}
         </userContext.Provider>
     )
