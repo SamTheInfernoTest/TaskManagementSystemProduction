@@ -21,7 +21,7 @@ function Login() {
   }, [userSelection])
 
   function loginUser() {
-    if (user && password && type != '') {
+    if (user && password && type != '' && type != null) {
 
       axios.post(`${baseApiUrl}/${type}/login/`, {
         uid: user,
@@ -38,7 +38,7 @@ function Login() {
         )
     }
     else{
-      toast.info('Please enter UID, password and select type of user',{ containerId: "login", toastId:'notFullyFilled' });
+      toast.info('Please enter UID, Password and Select type of User',{ containerId: "login", toastId:'notFullyFilled' });
     }
   }
 

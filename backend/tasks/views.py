@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from django.utils import timezone
 
 from .models import Task, TaskSubmission
 from institute.models import Standard
@@ -10,7 +11,10 @@ from students.models import Student
 @api_view(['GET'])
 def studentGetTasks(request, standard):
     std = Standard.objects.get(std=standard)
-    tasks = Task.objects.filter(assignees=std.id)
+    
+     # Filter tasks by assignees and by due_date >= current time
+    current_time = timezone.now()
+    tasks = Task.objects.filter(assignees=std.id, due_date__gte=current_time)
 
     tasks_data = []
     for task in tasks:
@@ -43,3 +47,28 @@ def studentSubmitTask(request):
     task_submission.save()
 
     return Response({'message': 'Task submitted successfully'}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def studentGetSubmissions(request, standard, student_uid):
+    std = Standard.objects.get(std=standard)
+
+     # Filter tasks by assignees and by due_date >= current time
+    current_time = timezone.now()
+    tasks = Task.objects.filter(assignees=std, due_date__gte=current_time)
+
+    student = Student.objects.get(uid=student_uid)
+
+    task_submissions = TaskSubmission.objects.filter(student=student, task__in=tasks)
+
+    submissions_data = []
+    for submission in task_submissions:
+        submission_data = {
+            'id': submission.id,
+            'task_id': submission.task.id,
+            'submission_file': submission.submission_file.url if submission.submission_file else None,  
+            'submitted_date': submission.completed_date,
+        }
+        submissions_data.append(submission_data)
+
+    return Response(submissions_data, status=status.HTTP_200_OK)

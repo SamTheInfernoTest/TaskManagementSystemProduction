@@ -12,6 +12,8 @@ function App() {
   const { theme, baseApiUrl } = useWeb()
   const [showMenu, setShowMenu] = useState(false)
 
+
+
   return (
     <div className="Main w-screen h-screen relative">
       <div className={`dark:bg-darkMenu bg-lightMenu absolute w-[15rem] lg:left-0 h-full overflow-y-auto duration-200 ${showMenu ? "left-0 z-10" : "-left-[15rem] z-0"}`} >
@@ -41,7 +43,7 @@ function App() {
 
           <div className="my-auto mr-5 flex sm:gap-8 gap-2">
             <button
-            className="text-lg font-semibold text-darkText dark:bg-red-700 dark:hover:bg-red-800 bg-red-500 hover:bg-red-700 my-auto py-1 px-3 rounded-3xl"
+            className="text-lg font-semibold text-darkText dark:bg-red-700 dark:hover:bg-red-800 bg-red-600 hover:bg-red-700 my-auto py-1 px-3 rounded-3xl"
             onClick={() => logoutTheUser()}
             >Logout</button>
             <img src={`${baseApiUrl}${profileImage}`} alt="Profile Image"

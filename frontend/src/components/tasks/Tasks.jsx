@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useRef, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 import TaskPanel from './TaskPanel'
 import useWeb from '../../context/WebContext'
@@ -10,7 +11,7 @@ function Tasks() {
 
   const { theme } = useWeb();
 
-  const { axiosSecure, standards, timeLimit } = useUser();
+  const { axiosSecure, standards, timeLimit, uid } = useUser();
 
   const [tasks, setTasks] = useState([]);
 
@@ -19,6 +20,8 @@ function Tasks() {
   const [timeLimitTasks, setTimeLimitTasks] = useState([]);
 
   const [otherTasks, setOtherTasks] = useState([]);
+
+  const [submittedTask, setSubmittedTask] = useState({});
 
   useEffect(() => {
 
@@ -37,7 +40,35 @@ function Tasks() {
       .catch(err => {
         console.log(err);
       });
+
+
+      
+
   }, [])
+
+  const [taskViewer, setTaskViewer] = useState(false);
+  useEffect(() => {
+    const taskSubmissionRequests = standards.map(std =>
+      axiosSecure.get(`task/studentGetSubmissions/${std}/${uid}/`).then(res => res.data)
+
+    );
+
+    // Once all requests are completed, set the tasks state with all results
+    Promise.all(taskSubmissionRequests)
+      .then(allTasks => {
+        // Flatten the array of arrays and set it as the tasks
+        const allSubmittedTasks = allTasks.flat();
+        
+
+        setSubmittedTask(allSubmittedTasks.reduce((acc, { task_id, ...rest }) => {
+          acc[task_id] = rest;
+          return acc;
+        }, {}));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [taskViewer])
 
   useEffect(() => {
     setTimeLimitTasks(
@@ -52,7 +83,6 @@ function Tasks() {
   const timeLimitRef = useRef(null);
   const newTaskRef = useRef(null);
 
-  const [taskViewer, setTaskViewer] = useState(false);
   function handleScrollTimeLimit(e) {
     if (timeLimitRef.current) {
       timeLimitRef.current.scrollLeft -= e.movementX
@@ -76,7 +106,9 @@ function Tasks() {
 
   return (
     <div>
-      {taskViewer ? <TaskViewer info={taskInfo} setTaskViewer={setTaskViewer} /> : null}
+      <ToastContainer containerId='task' position='top-right' theme={theme}/>
+
+      {taskViewer ? <TaskViewer info={taskInfo} setTaskViewer={setTaskViewer} submittedTask = {submittedTask} /> : null}
 
 
       {timeLimitTasks.length > 0 &&

@@ -137,7 +137,9 @@ export function UserContextProvider({ children }) {
             setAuthHeader(newAccessToken);
             return newAccessToken;
         } catch (error) {
-            // Handle the error (e.g., logout user)
+            
+            logoutTheUser()
+            
             console.error('Token refresh failed', error);
             throw error;
         }
