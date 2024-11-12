@@ -27,8 +27,8 @@ function TaskPanel({setTaskViewer, setTaskInfo, info}) {
         </p>
       </div>
       <div className="p-2 pt-0 absolute bottom-0 w-80 flex justify-between">
-      <div className='my-auto font-semibold'>
-          🕒{isoToLocal(info?.due_date)}
+      <div className='my-auto font-semibold '>
+          🕒{isoToLocal(info?.due_date).split(' ')[0]}
       </div>
         <button
           className=" select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-lg py-1 px-6 rounded-2xl shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 dark:bg-lightButton bg-[#0077B6] text-darkText "

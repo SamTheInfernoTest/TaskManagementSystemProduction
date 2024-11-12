@@ -13,3 +13,49 @@
     scrollbar-width: none;
     /* Firefox */
 }
+
+/* Light Theme */
+.light-theme .ql-toolbar .ql-stroke {
+    stroke: #333;
+    /* Darker color for light theme */
+}
+
+.light-theme .ql-toolbar .ql-fill,
+.light-theme .ql-toolbar .ql-picker,
+.light-theme .ql-toolbar button {
+    color: #333;
+    fill: #333;
+    /* Adjust the fill color for dropdowns and icons */
+}
+
+.light-theme .ql-toolbar .ql-picker-label {
+    color: #333;
+}
+
+.light-theme .ql-toolbar .ql-picker-options {
+    background-color: #f9f9f9;
+}
+
+/* Dark Theme */
+.dark-theme .ql-toolbar .ql-stroke {
+    stroke: #ddd;
+    /* Lighter color for dark theme */
+}
+
+.dark-theme .ql-toolbar .ql-fill,
+.dark-theme .ql-toolbar .ql-picker,
+.dark-theme .ql-toolbar button {
+    color: #ddd;
+    fill: #ddd;
+    /* Adjust the fill color for dropdowns and icons */
+}
+
+.dark-theme .ql-toolbar .ql-picker-label {
+    color: #ddd;
+}
+
+.dark-theme .ql-toolbar .ql-picker-options {
+    background-color: #333;
+}
+
+
