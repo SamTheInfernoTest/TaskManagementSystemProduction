@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom"
-import { useState } from "react"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
 
 import Menu from "./components/menu/Menu"
 import useUser from "./context/UserContext"
@@ -12,7 +12,44 @@ function App() {
   const { theme, baseApiUrl } = useWeb()
   const [showMenu, setShowMenu] = useState(false)
 
+  const navigate = useNavigate();
+  
+  // Save the current path and scroll position on page unload
+  useEffect(() => {
+    const outletElement = document.querySelector(".Outlet");
+    const saveScrollPosition = () => {
+      sessionStorage.setItem("scrollPosition", outletElement.scrollTop);
+      sessionStorage.setItem("currentPath", window.location.pathname);
+    };
 
+    window.addEventListener("beforeunload", saveScrollPosition);
+
+    return () => {
+      window.removeEventListener("beforeunload", saveScrollPosition);
+    };
+  }, []);
+
+  // Restore the path and scroll position after page reload
+  useEffect(() => {
+    const savedPath = sessionStorage.getItem("currentPath");
+    const savedScrollPosition = sessionStorage.getItem("scrollPosition");
+
+    if (savedPath) {
+      // Navigate to saved path
+      navigate(savedPath, { replace: true });
+    }
+
+    if (savedScrollPosition) {
+      // Delay scroll to ensure the route is loaded
+      console.log(savedScrollPosition);
+      
+      const outletElement = document.querySelector(".Outlet");
+      
+      setTimeout(() => {
+        outletElement.scrollTo(0, parseInt(savedScrollPosition, 10));
+      }, 100); // Adjust timeout as needed for rendering
+    }
+  }, [navigate]);
 
   return (
     <div className="Main w-screen h-screen relative">
@@ -51,7 +88,7 @@ function App() {
           </div>
         </header>
 
-        <div className={`dark:bg-darkBg bg-lightBg w-full absolute lg:top-[5.5rem] top-[4rem] lg:h-[calc(100vh-5.5rem)] h-[calc(100vh-4rem)] overflow-y-auto p-5 overflow-x-clip  ${showMenu ? "pointer-events-none" : "pointer-events-auto"}`} >
+        <div className={`Outlet dark:bg-darkBg bg-lightBg w-full absolute lg:top-[5.5rem] top-[4rem] lg:h-[calc(100vh-5.5rem)] h-[calc(100vh-4rem)] overflow-y-auto p-5 overflow-x-clip  ${showMenu ? "pointer-events-none" : "pointer-events-auto"}`} >
           <Outlet />
         </div>
       </div>

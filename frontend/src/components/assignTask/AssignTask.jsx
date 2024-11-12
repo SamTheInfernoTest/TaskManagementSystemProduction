@@ -1,16 +1,22 @@
 import React from 'react'
-import ReactQuill from 'react-quill'
+import Select from 'react-select'
+
 import RichTextEditor from './RichTextEditor'
+import useUser from '../../context/UserContext'
 
 function AssignTask() {
-  const value = `<h1>hello </h1><blockquote>helo </blockquote><pre class="ql-syntax" spellcheck="false">thid og kidkd
-</pre>`
+
+  const {standards} = useUser()
+  
+
   return (
     <div>
-     <RichTextEditor/>
-     <div>
-        <ReactQuill value={value} modules={{toolbar:false}} />
-     </div>
+      <div>
+        <h1 className='text-3xl font-bold'>Assign Now</h1>
+        <div>
+          <RichTextEditor />
+        </div>
+      </div>
     </div>
   )
 }

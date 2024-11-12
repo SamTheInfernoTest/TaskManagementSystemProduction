@@ -20,7 +20,6 @@ export default function Routes() {
   const { uid, userType } = useUser();
   const [router, setRouter] = useState(null);
 
-  
 
   const router1 = createBrowserRouter(
     createRoutesFromElements(

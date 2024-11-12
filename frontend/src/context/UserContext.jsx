@@ -65,7 +65,7 @@ export function UserContextProvider({ children }) {
         setStandards([])
         setToken(null)
         setRefreshToken(null)
-
+        localStorage.removeItem('currentPath')
         // localStorage.clear();
         // localStorage.setItem('userSelection', userType)
         // localStorage.setItem('theme', theme);

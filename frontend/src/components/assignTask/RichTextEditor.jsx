@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 
 import useWeb from '../../context/WebContext';
 
 const RichTextEditor = () => {
     const [editorContent, setEditorContent] = useState('');
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const {theme} = useWeb();
+
+    useEffect(() => {
+        const storedContent = localStorage.getItem('editorContent');
+        if (storedContent) {
+            setEditorContent(storedContent);
+        }
+    }, []);
+
+    function changeContent(content) {
+        setEditorContent(content);
+        localStorage.setItem('editorContent', content);
+    }
 
     // Toolbar configuration
     const toolbarOptions = [
@@ -45,7 +56,7 @@ const RichTextEditor = () => {
 
             <ReactQuill
                 value={editorContent}
-                onChange={setEditorContent}
+                onChange={changeContent}
                 modules={modules}
                 formats={formats}
                 // theme={theme === "dark" ? 'dark-theme' : 'snow' }
