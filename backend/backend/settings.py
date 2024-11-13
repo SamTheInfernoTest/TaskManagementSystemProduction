@@ -27,9 +27,10 @@ SECRET_KEY = 'django-insecure-o($scr(i^=80vzhu!pblfsl5&*g^ug6i=ln&2^2_0$kc64ry&q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.6']
 
-CORS_ALLOWED_ORIGINS = [ "http://localhost:5173", "http://127.0.0.1:5173"]
+# CORS_ALLOWED_ORIGINS = [ "http://localhost:5173", "http://127.0.0.1:5173"]
+CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -61,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware', # for iframe file view
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', # for iframe file view
 ]
 
 
