@@ -27,7 +27,9 @@ export function UserContextProvider({ children }) {
             setUserType(sessionStorage.getItem('userType'))
             setRefreshToken(sessionStorage.getItem('refreshToken'))
             setName(sessionStorage.getItem('name'))
-            setProfileImage(sessionStorage.getItem('profileImage'))
+            setProfileImage(sessionStorage.getItem('profileImage'))  
+                
+                
             setStandards(JSON.parse(sessionStorage.getItem('standards') || '[]'))
         }
     }, [])
@@ -36,7 +38,7 @@ export function UserContextProvider({ children }) {
         setUserType(userType)
         setUid(uid)
         setName(name)
-        setProfileImage(profileImage)
+        if (profileImage) setProfileImage(profileImage);
         setStandards(standards)
         setToken(token)
         setRefreshToken(refreshToken)
@@ -44,7 +46,7 @@ export function UserContextProvider({ children }) {
         sessionStorage.setItem('userType', userType)
         sessionStorage.setItem('uid', uid)
         sessionStorage.setItem('name', name)
-        sessionStorage.setItem('profileImage', profileImage)
+        if (profileImage) sessionStorage.setItem('profileImage', profileImage)
         sessionStorage.setItem('standards', JSON.stringify(standards))
         sessionStorage.setItem('refreshToken', refreshToken)
     }

@@ -4,7 +4,6 @@ import ReactQuill from 'react-quill';
 import axios from 'axios';
 
 import useUser from '../../context/UserContext'
-import FileViewer from './FileViewer';
 import useWeb from '../../context/WebContext';
 
 function TaskViewer({ info, setTaskViewer, submittedTask }) {
@@ -130,8 +129,8 @@ function TaskViewer({ info, setTaskViewer, submittedTask }) {
                         className='sm:h-full sm:w-7/12 w-full p-3 relative sm:overflow-y-auto'
                     >
                         <div className='sm:h-2/6 h-full'>
-                            <img src="https://picsum.photos/seed/picsum/400/200" alt={info?.title}
-                                className="object-cover h-full w-full"
+                            <img src={info?.task_image ? `${baseApiUrl}${info?.task_image}` : 'https://picsum.photos/600/200'} alt={info?.title}
+                                className="object-cover h-full w-full rounded-lg"
                             />
                         </div>
                         <div className=''>
@@ -162,7 +161,7 @@ function TaskViewer({ info, setTaskViewer, submittedTask }) {
                             <div className='w-full sm:h-full flex flex-col relative '>
                                 {submitted ?
                                     <div className='w-full lg:h-5/6 md:h-5/6 h-96 mt-4'>
-                                        <FileViewer url={submittedTask[info?.id]['submission_file']} />
+                                        
                                     </div>
                                     :
                                     <div className='w-full h-full flex flex-col justify-between mt-20'>

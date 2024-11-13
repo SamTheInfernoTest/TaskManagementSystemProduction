@@ -1,8 +1,10 @@
 import useUser from "../../context/UserContext"
+import useWeb from "../../context/WebContext"
 
 function TaskPanel({setTaskViewer, setTaskInfo, info}) {
 
  const {isoToLocal} = useUser()
+ const {baseApiUrl} = useWeb()
  
 
   return (
@@ -10,7 +12,7 @@ function TaskPanel({setTaskViewer, setTaskInfo, info}) {
     <div id={info?.id} className="relative flex flex-col shadow-md bg-clip-border rounded-xl w-80 h-[23rem] bg-lightPanel dark:bg-darkPanel">
       <div className="relative mx-4 mt-4 overflow-hidden bg-clip-border rounded-xl h-44">
         <img
-          src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
+          src={info?.task_image ? `${baseApiUrl}${info?.task_image}` : 'https://picsum.photos/200'}
           alt="card-image" className="object-cover w-full h-full" />
       </div>
       <div className="p-2">

@@ -79,7 +79,8 @@ function AssignTask() {
   function assignTask() {
 
     
-    if (subject && title && editorContent && chosenStandard && datetime) {
+    if (subject && title && editorContent && chosenStandard.length > 0 && datetime) {
+      console.log(chosenStandard);
       
       chosenStandard.map(standard => {
         const formData = new FormData()
