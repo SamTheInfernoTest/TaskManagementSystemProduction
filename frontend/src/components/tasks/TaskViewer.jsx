@@ -154,15 +154,16 @@ function TaskViewer({ info, setTaskViewer, submittedTask }) {
                                 <h3 className='flex justify-between'>Assigned on: <span>{`${isoToLocal(info?.created_date)}`}</span></h3>
                                 <h3 className='flex justify-between'>Deadline: <span>{`${isoToLocal(info?.due_date)}`}</span></h3>
                                 
-                                {submitted && <h3 className='flex justify-between'>Submitted on: <span>{`${isoToLocal(submittedTask[info?.id]['submitted_date'])}`}</span></h3>}
+                                {submitted && <h3 className='flex justify-between bg-green-600 p-1 rounded-xl'>Submitted on: <span>{`${isoToLocal(submittedTask[info?.id]['submitted_date'])}`}</span></h3>}
                             </div>
 
 
                             <div className='w-full sm:h-full flex flex-col relative '>
                                 {submitted ?
-                                    <div className='w-full lg:h-5/6 md:h-5/6 h-96 mt-4'>
+                                    // <div className='w-full lg:h-5/6 md:h-5/6 h-96 mt-4'>
                                         
-                                    </div>
+                                    // </div>
+                                    null
                                     :
                                     <div className='w-full h-full flex flex-col justify-between mt-20'>
                                         <div className="w-full max-w-md mx-auto ">
@@ -183,7 +184,7 @@ function TaskViewer({ info, setTaskViewer, submittedTask }) {
                                                     {file ? 'Replace File' : 'Upload File'}
                                                 </label>
                                                 {file && (
-                                                    <div className="mt-4 text-sm dark:text-darkText text-gray-700">
+                                                    <div className="mt-4 text-sm dark:text-darkText text-gray-700 break-words w-full">
                                                         Selected file: {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
                                                     </div>
                                                 )}

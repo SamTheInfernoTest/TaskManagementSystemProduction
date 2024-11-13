@@ -103,7 +103,19 @@
         /* Set the desired minimum height */
     }
 }
-
+@media (max-width: 400px) {
+    .ql-toolbar {
+        height: 150px;
+    }    
+    .ql-toolbar .ql-formats {
+        height: 28%;
+    }
+    .ql-editor {
+        min-height: 150px;
+        font-size: 18px;
+        /* Set the desired minimum height */
+    }
+}
 
 /* .ql-toolbar .ql-picker-options{
     height: 92px;

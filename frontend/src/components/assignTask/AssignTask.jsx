@@ -78,10 +78,10 @@ function AssignTask() {
   const [editorContent, setEditorContent] = useState(null);
   function assignTask() {
 
-    
+
     if (subject && title && editorContent && chosenStandard.length > 0 && datetime) {
       console.log(chosenStandard);
-      
+
       chosenStandard.map(standard => {
         const formData = new FormData()
         formData.append('file', file)
@@ -115,7 +115,7 @@ function AssignTask() {
     }
     else {
       toast.info('Subject, Title, Content, Due Date and at least one Standard are Required', { containerId: "assignTask" })
-      
+
     }
   }
 
@@ -207,22 +207,32 @@ function AssignTask() {
               </div>}
           </div>
         </div>
-        <div className='flex justify-between mt-9 px-14 xl:px-24 gap-3'>
+        <div className='flex justify-around mt-9 px-14 xl:px-24 gap-3 sm:flex-row flex-col'>
+          <div className='w-full sm:w-1/2 min-h-14'>
+
           <Select options={standardsOptions}
+            
             isMulti
             isClearable
             value={chosenStandard}
             onChange={setChosenStandard}
             placeholder="Select Standards"
+            menuPlacement="top"
             styles={{
+              input: (provided) => ({
+                ...provided,
+                color: theme === 'dark' ? 'white' : 'black', // Change color of selected value text
+              }),
               container: (provided) => ({
-                ...provided, width: 500,
-
+                ...provided, 
+                width: '100%',
+                height: '100%'
               }),
               control: (provided) => ({
                 ...provided,
                 backgroundColor: theme == 'dark' ? '#1e293b' : 'white',
-                height: 50, // Adjust height here
+                height: '100%', // Adjust height here
+                minHeight: '50px',
               }), placeholder: (provided) => ({
                 ...provided,
                 color: theme == 'dark' ? '#DFF2EB' : 'black', // Adjust placeholder text color here
@@ -262,6 +272,7 @@ function AssignTask() {
               }),
             }}
           />
+          </div>
           <button
             className='dark:bg-darkButton bg-lightButton px-4 py-2 rounded-3xl dark:text-[#DFF2EB] text-white hover:ring dark:hover:ring-slate-400 hover:ring-slate-300 font-bold text-xl'
             onClick={assignTask}
