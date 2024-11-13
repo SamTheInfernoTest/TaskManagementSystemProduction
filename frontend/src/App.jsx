@@ -41,7 +41,6 @@ function App() {
 
     if (savedScrollPosition) {
       // Delay scroll to ensure the route is loaded
-      console.log(savedScrollPosition);
       
       const outletElement = document.querySelector(".Outlet");
       

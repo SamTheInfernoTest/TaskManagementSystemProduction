@@ -3,10 +3,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.utils import timezone
+import pytz
+from datetime import datetime
+from django.conf import settings
 
 from .models import Task, TaskSubmission
-from institute.models import Standard
+from institute.models import Standard 
 from students.models import Student
+from mentors.models import Mentor
 
 @api_view(['GET'])
 def studentGetTasks(request, standard):
@@ -31,7 +35,6 @@ def studentGetTasks(request, standard):
         }
         tasks_data.append(task_data)
     
-
     return Response(tasks_data, status=status.HTTP_200_OK)
 
 
@@ -72,3 +75,45 @@ def studentGetSubmissions(request, standard, student_uid):
         submissions_data.append(submission_data)
 
     return Response(submissions_data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def assignTask(request):
+    data = request.data
+    file = request.FILES.get('file')
+    image = request.FILES.get('image')
+    uid = data.get('uid')
+    assignee = data.get('assignee')
+    subject = data.get('subject')
+    title = data.get('title')
+    description = data.get('description')
+    dueDate = data.get('dueDate')
+
+    assignor = Mentor.objects.get(uid=uid)
+    assignee = Standard.objects.get(std=assignee)
+
+    # Parse the string into a naive datetime object
+    naive_datetime = datetime.strptime(dueDate, '%Y-%m-%dT%H:%M')
+
+    # Define the Kolkata timezone 
+    local_tz = pytz.timezone(settings.TIME_ZONE)
+
+    # Convert the naive datetime to a timezone-aware datetime 
+    aware_datetime = local_tz.localize(naive_datetime)
+
+    due_date = aware_datetime
+
+    task = Task.objects.create(
+        subject=subject,
+        title = title,
+        task_file = file,
+        task_image = image,
+        description = description,
+        due_date = due_date,
+        assignor = assignor,
+        assignees = assignee
+    )
+
+    task.save()
+
+    return Response({'message': 'Task assigned successfully'}, status=status.HTTP_200_OK)

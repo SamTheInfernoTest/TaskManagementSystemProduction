@@ -20,6 +20,7 @@ pyasn1_modules==0.4.1
 pycparser==2.22
 PyJWT==2.9.0
 pyOpenSSL==24.2.1
+pytz==2024.2
 service-identity==24.2.0
 setuptools==75.3.0
 sqlparse==0.5.1

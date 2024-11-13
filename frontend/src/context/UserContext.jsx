@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
-import Cookie from "js-cookie";
 
 import useWeb from "./WebContext";
 
@@ -23,13 +22,13 @@ export function UserContextProvider({ children }) {
     const {baseApiUrl, theme} = useWeb()
 
     useEffect(() => {
-        if(Cookie.get('uid')){
-            setUid(Cookie.get('uid'))
-            setUserType(Cookie.get('userType'))
-            setRefreshToken(Cookie.get('refreshToken'))
-            setName(Cookie.get('name'))
-            setProfileImage(Cookie.get('profileImage'))
-            setStandards(JSON.parse(Cookie.get('standards') || '[]'))
+        if (sessionStorage.getItem('uid')){
+            setUid(sessionStorage.getItem('uid'))
+            setUserType(sessionStorage.getItem('userType'))
+            setRefreshToken(sessionStorage.getItem('refreshToken'))
+            setName(sessionStorage.getItem('name'))
+            setProfileImage(sessionStorage.getItem('profileImage'))
+            setStandards(JSON.parse(sessionStorage.getItem('standards') || '[]'))
         }
     }, [])
 
@@ -42,21 +41,21 @@ export function UserContextProvider({ children }) {
         setToken(token)
         setRefreshToken(refreshToken)
 
-        Cookie.set('userType', userType)
-        Cookie.set('uid', uid)
-        Cookie.set('name', name)
-        Cookie.set('profileImage', profileImage)
-        Cookie.set('standards', JSON.stringify(standards))
-        Cookie.set('refreshToken', refreshToken)
+        sessionStorage.setItem('userType', userType)
+        sessionStorage.setItem('uid', uid)
+        sessionStorage.setItem('name', name)
+        sessionStorage.setItem('profileImage', profileImage)
+        sessionStorage.setItem('standards', JSON.stringify(standards))
+        sessionStorage.setItem('refreshToken', refreshToken)
     }
 
     function logoutTheUser(){
-        Cookie.remove('userType')
-        Cookie.remove('uid')
-        Cookie.remove('name')
-        Cookie.remove('profileImage')
-        Cookie.remove('standards')
-        Cookie.remove('refreshToken')
+        sessionStorage.removeItem('userType')
+        sessionStorage.removeItem('uid')
+        sessionStorage.removeItem('name')
+        sessionStorage.removeItem('profileImage')
+        sessionStorage.removeItem('standards')
+        sessionStorage.removeItem('refreshToken')
 
         setUserType(null)
         setUid(null)
@@ -65,7 +64,8 @@ export function UserContextProvider({ children }) {
         setStandards([])
         setToken(null)
         setRefreshToken(null)
-        localStorage.removeItem('currentPath')
+
+        sessionStorage.clear();
         // localStorage.clear();
         // localStorage.setItem('userSelection', userType)
         // localStorage.setItem('theme', theme);

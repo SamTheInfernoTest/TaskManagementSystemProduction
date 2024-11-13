@@ -3,12 +3,11 @@ import ReactQuill from 'react-quill';
 
 import useWeb from '../../context/WebContext';
 
-const RichTextEditor = () => {
-    const [editorContent, setEditorContent] = useState('');
+const RichTextEditor = ({ editorContent, setEditorContent }) => {
     const {theme} = useWeb();
 
     useEffect(() => {
-        const storedContent = localStorage.getItem('editorContent');
+        const storedContent = sessionStorage.getItem('editorContent');
         if (storedContent) {
             setEditorContent(storedContent);
         }
@@ -16,7 +15,7 @@ const RichTextEditor = () => {
 
     function changeContent(content) {
         setEditorContent(content);
-        localStorage.setItem('editorContent', content);
+        sessionStorage.setItem('editorContent', content);
     }
 
     // Toolbar configuration
@@ -49,10 +48,7 @@ const RichTextEditor = () => {
 
     return (
         <div className={`editor-container p-4 bg-white dark:bg-slate-800 shadow-lg rounded-lg max-w-3xl mx-auto mt-8`}>
-            <div className="toolbar flex justify-between mb-2">
-                <h2 className="text-lg font-semibold">Rich Text Editor</h2>
-                
-            </div>
+            
 
             <ReactQuill
                 value={editorContent}
@@ -61,14 +57,15 @@ const RichTextEditor = () => {
                 formats={formats}
                 // theme={theme === "dark" ? 'dark-theme' : 'snow' }
                 className={`dark:text-darkText text-lightText ${theme === 'dark' ? 'dark-theme' : 'light-theme'}`}
+                placeholder="Write or Paste your content here..."
             />
 
-            <div className="output mt-6">
+            {/* <div className="output mt-6">
                 <h3 className="text-md font-semibold mb-2">Editor Output (HTML):</h3>
                 <div className="border p-2 rounded-md bg-gray-100 dark:bg-gray-700">
                     <pre className="whitespace-pre-wrap text-sm">{editorContent}</pre>
                 </div>
-            </div>
+            </div> */}
             
         </div>
     );
