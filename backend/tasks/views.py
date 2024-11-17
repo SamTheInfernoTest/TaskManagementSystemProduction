@@ -44,6 +44,11 @@ def studentSubmitTask(request):
     task_id = data.get('task_id')
     student_uid = data.get('student_uid')
     task = Task.objects.get(id=task_id)
+
+    current_time = timezone.now()
+    if task.due_date < current_time:
+        return Response({'message': 'Task is past due date'}, status=status.HTTP_400_BAD_REQUEST)
+
     student = Student.objects.get(uid=student_uid)
     file = request.FILES.get('file')
     task_submission = TaskSubmission(task=task, student=student, submission_file=file)
@@ -117,3 +122,24 @@ def assignTask(request):
     task.save()
 
     return Response({'message': 'Task assigned successfully'}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def mentorGetTasks(request, uid, startDate, endDate):
+    mentor = Mentor.objects.get(uid=uid)
+    tasks = Task.objects.filter(assignor=mentor)
+
+    startTimeStamp = int(startDate) / 1000
+    endTimeStamp = int(endDate) / 1000
+
+    start = timezone.datetime.fromtimestamp(startTimeStamp)
+    end = timezone.datetime.fromtimestamp(endTimeStamp)
+
+    tasks = tasks.filter(due_date__range=[start, end])
+
+    data = tasks.values()
+
+    for d in data:
+        d['assignees_id'] = Standard.objects.get(id=d['assignees_id']).std
+
+    return Response( data, status=status.HTTP_200_OK)

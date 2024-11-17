@@ -80,7 +80,6 @@ function AssignTask() {
 
 
     if (subject && title && editorContent && chosenStandard.length > 0 && datetime) {
-      console.log(chosenStandard);
 
       chosenStandard.map(standard => {
         const formData = new FormData()
@@ -145,11 +144,15 @@ function AssignTask() {
             <label htmlFor=""
               className='font-semibold p-2 text-lg'
             >Due Date</label>
+            {/* <label htmlFor='selectDate'
+              className='font-semibold p-2 text-lg dark:bg-[#1e293b] bg-white  sm:max-w-48 rounded-lg dark:text-darkText text-lightText'
+            >Choose Date & Time</label> */}
             <input type='datetime-local'
+              id = 'selectDate'
               value={datetime}
               onChange={(e) => setDatetime(e.target.value)}
               min={new Date().toISOString().slice(0, 16)}
-              className='dark:bg-[#1e293b] bg-white  sm:max-w-48 p-1 rounded-lg'
+              className='dark:bg-[#1e293b] bg-white  sm:max-w-48 p-1 rounded-lg '
             />
           </div>
         </div>

@@ -12,7 +12,7 @@ import Chat from "./components/chat/Chat.jsx";
 import Settings from "./components/settings/Settings.jsx";
 import Login from "./components/authentication/Login.jsx";
 import Register from "./components/authentication/Register.jsx";
-import Students from "./components/students/Students.jsx";
+import Submissions from "./components/submissions/Submissions.jsx";
 import AssignTask from "./components/assignTask/AssignTask.jsx";
 
 
@@ -54,7 +54,7 @@ export default function Routes() {
         <Route path={`/${uid}`} element={<App />} >
           <Route path='home' element={<Home />} />
           <Route path='assignTask' element={<AssignTask />} />
-          <Route path='students' element={<Students />} />
+          <Route path='submissions' element={<Submissions />} />
           <Route path='chat' element={<Chat />} />
           <Route path='settings' element={<Settings />} />
         </Route>

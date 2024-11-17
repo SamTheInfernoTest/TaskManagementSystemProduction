@@ -103,6 +103,9 @@ function TaskViewer({ info, setTaskViewer, submittedTask }) {
                     toast.success('Task submission & File upload successful', { containerId: "task" });
                     setTaskViewer(false);
                 }
+            }).catch((err) => {
+                console.error(err);
+                toast.error(err.response.data.message, { containerId: "task" });
             })
         } else {
             toast.error('Please select a file.', { containerId: "task", toastId: 'noFileSelected' });
