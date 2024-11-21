@@ -12,7 +12,8 @@ export function WebContextProvider({ children }) {
     const [themeMenu, setThemeMenu] = useState('hidden');
     const [mode, setMode] = useState(localTheme || 'system');
 
-    const baseApiUrl = 'http://127.0.0.1:8000'
+    // const baseApiUrl = 'http://127.0.0.1:8000'
+    const baseApiUrl = 'https://tmsbackend-lui2nqzdb-samtheinfernotests-projects.vercel.app'
 
     // For reference https://coolors.co/palette/03045e-023e8a-0077b6-0096c7-00b4d8-48cae4-90e0ef-ade8f4-caf0f8
     
