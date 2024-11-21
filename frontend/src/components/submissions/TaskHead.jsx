@@ -27,7 +27,8 @@ function TaskHead({ task }) {
 
     return (
         <li id={`task-${task?.id}`}
-        className=' mb-2 font-semibold text-lg '
+            className=' mb-2 font-semibold text-lg '
+            onClick={() => setDrop(!drop)}
         >
             <div className='flex justify-between bg-lightPanel dark:bg-darkPanel rounded-lg dark:hover:brightness-125 hover:brightness-105' >
                 <div className='p-2'>
@@ -39,7 +40,6 @@ function TaskHead({ task }) {
                     <div className='bg-lightMenu dark:bg-darkMenu rounded-r-lg '>
                         <button className='h-full p-2'
                         title='To Refresh Submissions open it again'
-                        onClick={() =>  setDrop(!drop)}
                         >
                             {drop ? '▽' : '▷'}
                         </button>
