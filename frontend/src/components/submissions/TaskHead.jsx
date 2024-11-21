@@ -1,10 +1,30 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import useUser from '../../context/UserContext'
+import Sub from "./Sub";
 
 function TaskHead({ task }) {
-    const { isoToLocal } = useUser()
+    const { isoToLocal, axiosSecure } = useUser()
     const [drop, setDrop] = useState(false)
+    const [submissions, setSubmissions] = useState([])
+    const [listHeight, setListHeight] = useState(0)
     const contentRef = useRef(null);
+
+    useEffect(() => {
+        if (drop) {
+            axiosSecure.get(`task/mentorGetSubmissions/${task?.id}`).then(res => {setSubmissions(res.data); console.log(res.data);
+            });            
+        }
+    }, [drop])
+
+    useEffect(() => {
+        if (drop) {
+            setListHeight(contentRef.current?.scrollHeight)
+        }
+        else {
+            setListHeight(0)
+        }
+    }, [submissions, drop])
+
     return (
         <li id={`task-${task?.id}`}
         className=' mb-2 font-semibold text-lg '
@@ -18,6 +38,7 @@ function TaskHead({ task }) {
                     <h2 className='p-2'>{isoToLocal(task?.due_date)}</h2>
                     <div className='bg-lightMenu dark:bg-darkMenu rounded-r-lg '>
                         <button className='h-full p-2'
+                        title='To Refresh Submissions open it again'
                         onClick={() =>  setDrop(!drop)}
                         >
                             {drop ? '▽' : '▷'}
@@ -28,11 +49,19 @@ function TaskHead({ task }) {
             <ul
                 ref={contentRef}
                 style={{
-                    maxHeight: drop ? `${contentRef.current?.scrollHeight}px` : '0px',
+                    maxHeight:`${listHeight}px`
                 }}
-                className="transition-all duration-500 overflow-hidden ease-out"
+                className={`transition-all duration-200 overflow-hidden ease-out dark:bg-[#1e293b] bg-white rounded-b-lg `}
             >
-                
+                {
+                submissions.length > 0 
+                ?
+                submissions.map(sub => <Sub key={sub?.id} sub={sub} />)
+                :
+                <h3
+                className='p-1'
+                >No Submissions</h3>
+                }
             </ul>
         </li>
     )

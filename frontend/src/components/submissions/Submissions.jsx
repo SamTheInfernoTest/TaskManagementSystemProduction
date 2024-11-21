@@ -22,7 +22,7 @@ function Submissions() {
 
   useEffect(() => {
     if (dateRange.startDate) {
-      axiosSecure.get(`task/getAssignedTasks/${uid}/${dateRange.startDate}/${dateRange.endDate}`).then(res => {console.log(res.data); setTasks(res.data)});
+      axiosSecure.get(`task/getAssignedTasks/${uid}/${dateRange.startDate}/${dateRange.endDate}`).then(res => {setTasks(res.data)});
     }
 
   }, [dateRange])

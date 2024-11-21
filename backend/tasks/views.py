@@ -143,3 +143,16 @@ def mentorGetTasks(request, uid, startDate, endDate):
         d['assignees_id'] = Standard.objects.get(id=d['assignees_id']).std
 
     return Response( data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def mentorGetSubmissions(request, taskId):
+    task = Task.objects.get(id=taskId)
+    task_submissions = TaskSubmission.objects.filter(task=task)
+
+    data = task_submissions.values()
+
+    for d in data:
+        d['student'] = Student.objects.get(id=d['student_id']).name
+        d['submission_file'] ='/media/' + d['submission_file']
+
+    return Response( data, status=status.HTTP_200_OK)

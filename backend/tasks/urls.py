@@ -8,4 +8,5 @@ urlpatterns = [
     path('studentGetSubmissions/<str:standard>/<str:student_uid>/',views.studentGetSubmissions , name='studentGetSubmissions'),
     path('assignTask/',views.assignTask , name='assignTask'),
     path('getAssignedTasks/<str:uid>/<str:startDate>/<str:endDate>/',views.mentorGetTasks , name='mentorGetTasks'),
+    path('mentorGetSubmissions/<str:taskId>/',views.mentorGetSubmissions , name='mentorGetSubmissions'),
 ]
