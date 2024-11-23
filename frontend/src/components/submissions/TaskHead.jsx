@@ -11,7 +11,7 @@ function TaskHead({ task }) {
 
     useEffect(() => {
         if (drop) {
-            axiosSecure.get(`task/mentorGetSubmissions/${task?.id}`).then(res => {setSubmissions(res.data); console.log(res.data);
+            axiosSecure.get(`task/mentorGetSubmissions/${task?.id}`).then(res => {setSubmissions(res.data);
             });            
         }
     }, [drop])

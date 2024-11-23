@@ -142,6 +142,17 @@ DATABASES = {
 
 # DATABASES = {
 #     'default': {
+#         'ENGINE': 'mysql.connector.django',
+#         'NAME': 'freedb_tmsDataBase',
+#         'USER': 'freedb_tmssam',
+#         'PASSWORD': '&JdFp@SBu#9rTqP',
+#         'HOST':'sql.freedb.tech',
+#         'PORT':'3306',
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'TMSDataBase',
 #         'USER': 'saurabh',
