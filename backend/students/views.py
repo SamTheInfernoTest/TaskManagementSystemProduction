@@ -17,7 +17,7 @@ def login(request):
         if user.password == password:
             name = user.name
             profileImage =  user.profile_image.url if user.profile_image else None
-            standards = user.standards.values_list('std', flat=True)
+            standards = user.standards.values()
             refresh = RefreshToken.for_user(user)
             return Response({
                 'refresh': str(refresh),

@@ -11,7 +11,7 @@ function TaskHead({ task }) {
 
     useEffect(() => {
         if (drop) {
-            axiosSecure.get(`task/mentorGetSubmissions/${task?.id}`).then(res => {setSubmissions(res.data); console.log(res.data);
+            axiosSecure.get(`task/mentorGetSubmissions/${task?.id}`).then(res => {setSubmissions(res.data);
             });            
         }
     }, [drop])
@@ -28,9 +28,10 @@ function TaskHead({ task }) {
     return (
         <li id={`task-${task?.id}`}
             className=' mb-2 font-semibold text-lg '
-            onClick={() => setDrop(!drop)}
         >
-            <div className='flex justify-between bg-lightPanel dark:bg-darkPanel rounded-lg dark:hover:brightness-125 hover:brightness-105' >
+            <div className='flex justify-between bg-lightPanel dark:bg-darkPanel rounded-lg dark:hover:brightness-125 hover:brightness-105'
+            onClick={() => setDrop(!drop)}
+            >
                 <div className='p-2'>
                     <h2>{`${task?.subject}: ${task?.title}`}</h2>
                     <h2 className='text-sm'>{task?.assignees_id}</h2>
