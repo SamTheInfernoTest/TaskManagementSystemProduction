@@ -16,7 +16,7 @@ function AssignTask() {
 
 
   useEffect(() => {
-    setStandardsOptions(standards.map(standard => ({ value: standard, label: standard })))
+    setStandardsOptions(standards.map(({id,std}) => ({ value: id, label: std })))
   }, [standards])
 
 

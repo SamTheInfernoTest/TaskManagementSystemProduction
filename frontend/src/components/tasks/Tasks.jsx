@@ -27,8 +27,8 @@ function Tasks() {
   useEffect(() => {
 
     // Create an array to store all promises for the axios requests
-    const taskRequests = standards.map(std =>
-      axiosSecure.get(`task/byStudent/${std}`).then(res => res.data)
+    const taskRequests = standards.map(({id}) =>
+      axiosSecure.get(`task/byStudent/${id}`).then(res => res.data)
 
     );
 
@@ -47,9 +47,11 @@ function Tasks() {
 
   }, [taskViewer])
 
+  
+
   useEffect(() => {
-    const taskSubmissionRequests = standards.map(std =>
-      axiosSecure.get(`task/studentGetSubmissions/${std}/${uid}/`).then(res => res.data)
+    const taskSubmissionRequests = standards.map(({id}) =>
+      axiosSecure.get(`task/studentGetSubmissions/${id}/${uid}/`).then(res => res.data)
 
     );
 

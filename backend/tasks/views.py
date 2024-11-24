@@ -14,7 +14,7 @@ from mentors.models import Mentor
 
 @api_view(['GET'])
 def studentGetTasks(request, standard):
-    std = Standard.objects.get(std=standard)
+    std = Standard.objects.get(id=standard)
     
      # Filter tasks by assignees and by due_date >= current time
     current_time = timezone.now()
@@ -59,7 +59,7 @@ def studentSubmitTask(request):
 
 @api_view(['GET'])
 def studentGetSubmissions(request, standard, student_uid):
-    std = Standard.objects.get(std=standard)
+    std = Standard.objects.get(id=standard)
 
      # Filter tasks by assignees and by due_date >= current time
     current_time = timezone.now()
@@ -95,7 +95,7 @@ def assignTask(request):
     dueDate = data.get('dueDate')
 
     assignor = Mentor.objects.get(uid=uid)
-    assignee = Standard.objects.get(std=assignee)
+    assignee = Standard.objects.get(id=assignee)
 
     # Parse the string into a naive datetime object
     naive_datetime = datetime.strptime(dueDate, '%Y-%m-%dT%H:%M')
